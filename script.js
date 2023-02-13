@@ -1,27 +1,118 @@
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
 
-
-
-
 // Write password to the #password input
 function writePassword() {
-  // var password = generatePassword();
-  // var passwordText = document.querySelector("#password");
-  
-  // passwordText.value = password;
+  var passwordText = document.querySelector("#password");
 
-  // var lowercase = "abcdefghijklmnopqrstuvwxyz";
-  // var uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  // var numbers = "1234567890";
-  // var special = " !#$%&'()*+,-./:;<=>?@[]^_`{|}~";
+  function generatePassword() {
+    var lowercase = "abcdefghijklmnopqrstuvwxyz";
+    var uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    var number = "1234567890";
+    var special = "!#$%&'()*+,-./:;<=>?@[]^_`{|}~";
+    
+    // 4/4 options selected
+    if (lowercaseChoice === "yes" && uppercaseChoice === "yes" && numberChoice === "yes" && specialChoice === "yes") {
+      var AllFour = lowercase.concat(uppercase, number, special);
+      var password = [...window.crypto.getRandomValues(new Uint32Array(lengthChoice))]
+        .map(x => AllFour[x % AllFour.length])
+        .join('');
+      passwordText.value = password;
+    
+    // 3/4 options selected
+    } else if (lowercaseChoice === "yes" && uppercaseChoice === "yes" && numberChoice === "yes" && specialChoice === "no") {
+      var AllButSpecial = lowercase.concat(uppercase, number);
+      var password = [...window.crypto.getRandomValues(new Uint32Array(lengthChoice))]
+        .map(x => AllButSpecial[x % AllButSpecial.length])
+        .join('');
+      passwordText.value = password;
+    } else if (lowercaseChoice === "yes" && uppercaseChoice === "yes" && numberChoice === "no" && specialChoice === "yes") {
+      var AllButNumber = lowercase.concat(uppercase, special);
+      var password = [...window.crypto.getRandomValues(new Uint32Array(lengthChoice))]
+        .map(x => AllButNumber[x % AllButNumber.length])
+        .join(''); 
+      passwordText.value = password;
+    } else if (lowercaseChoice === "yes" && uppercaseChoice === "no" && numberChoice === "yes" && specialChoice === "yes") {
+      var AllButUppercase = lowercase.concat(number, special);
+      var password = [...window.crypto.getRandomValues(new Uint32Array(lengthChoice))]
+        .map(x => AllButUppercase[x % AllButUppercase.length])
+        .join(''); 
+      passwordText.value = password;
+    } else if (lowercaseChoice === "no" && uppercaseChoice === "yes" && numberChoice === "yes" && specialChoice === "yes") {
+      var AllButLowercase = uppercase.concat(number, special);
+      var password = [...window.crypto.getRandomValues(new Uint32Array(lengthChoice))]
+        .map(x => AllButLowercase[x % AllButLowercase.length])
+        .join(''); 
+      passwordText.value = password;
+    
+    // 2/4 options selected
+    } else if (lowercaseChoice === "yes" && uppercaseChoice === "yes" && numberChoice === "no" && specialChoice === "no") {
+      var UpperAndLowerOnly = lowercase.concat(uppercase);
+      var password = [...window.crypto.getRandomValues(new Uint32Array(lengthChoice))]
+        .map(x => UpperAndLowerOnly[x % UpperAndLowerOnly.length])
+        .join(''); 
+      passwordText.value = password;
+    } else if (lowercaseChoice === "no" && uppercaseChoice === "yes" && numberChoice === "yes" && specialChoice === "no") {
+      var UpperAndNumberOnly = uppercase.concat(number);
+      var password = [...window.crypto.getRandomValues(new Uint32Array(lengthChoice))]
+        .map(x => UpperAndNumberOnly[x % UpperAndNumberOnly.length])
+        .join(''); 
+      passwordText.value = password;
+    } else if (lowercaseChoice === "no" && uppercaseChoice === "no" && numberChoice === "yes" && specialChoice === "yes") {
+      var SpecialAndNumberOnly = special.concat(number);
+      var password = [...window.crypto.getRandomValues(new Uint32Array(lengthChoice))]
+        .map(x => SpecialAndNumberOnly[x % SpecialAndNumberOnly.length])
+        .join(''); 
+      passwordText.value = password;
+    } else if (lowercaseChoice === "yes" && uppercaseChoice === "no" && numberChoice === "no" && specialChoice === "yes") {
+      var SpecialAndLowerOnly = special.concat(lowercase);
+      var password = [...window.crypto.getRandomValues(new Uint32Array(lengthChoice))]
+        .map(x => SpecialAndLowerOnly[x % SpecialAndLowerOnly.length])
+        .join('');
+      passwordText.value = password;
+    } else if (lowercaseChoice === "yes" && uppercaseChoice === "no" && numberChoice === "yes" && specialChoice === "no") {
+      var NumberAndLowerOnly = number.concat(lowercase);
+      var password = [...window.crypto.getRandomValues(new Uint32Array(lengthChoice))]
+        .map(x => NumberAndLowerOnly[x % NumberAndLowerOnly.length])
+        .join(''); 
+      passwordText.value = password;
+    } else if (lowercaseChoice === "no" && uppercaseChoice === "yes" && numberChoice === "no" && specialChoice === "yes") {
+      var UpperAndSpecialOnly = special.concat(uppercase);
+      var password = [...window.crypto.getRandomValues(new Uint32Array(lengthChoice))]
+        .map(x => UpperAndSpecialOnly[x % UpperAndSpecialOnly.length])
+        .join(''); 
+      passwordText.value = password;
+    
+    // 1/4 options selected
+    } else if (lowercaseChoice === "yes" && uppercaseChoice === "no" && numberChoice === "no" && specialChoice === "no") {
+      var password = [...window.crypto.getRandomValues(new Uint32Array(lengthChoice))]
+        .map(x => lowercase[x % lowercase.length])
+        .join(''); 
+      passwordText.value = password;
+    } else if (lowercaseChoice === "no" && uppercaseChoice === "yes" && numberChoice === "no" && specialChoice === "no") {
+      var password = [...window.crypto.getRandomValues(new Uint32Array(lengthChoice))]
+        .map(x => uppercase[x % uppercase.length])
+        .join(''); 
+      passwordText.value = password;
+    } else if (lowercaseChoice === "no" && uppercaseChoice === "no" && numberChoice === "yes" && specialChoice === "no") {
+      var password = [...window.crypto.getRandomValues(new Uint32Array(lengthChoice))]
+        .map(x => number[x % number.length])
+        .join(''); 
+      passwordText.value = password;
+    } else if (lowercaseChoice === "no" && uppercaseChoice === "no" && numberChoice === "no" && specialChoice === "yes") {
+      var password = [...window.crypto.getRandomValues(new Uint32Array(lengthChoice))]
+        .map(x => special[x % special.length])
+        .join(''); 
+      passwordText.value = password;
+    
+    // This line should never run. If it does, check for error in prompt series
+    } else {
+      var password = "Something went wrong. Please try again!";
+      passwordText.value = password;
+    }
+  }
 
-  // function generatePassword()
-
-
-
-
-
+  // Prompt Series
   var lowercaseChoice = window.prompt("Do you want your password to contain [LOWERCASE] letters? Please enter 'yes' or 'no'.")
   if (!lowercaseChoice) {
     return;
@@ -86,6 +177,7 @@ function writePassword() {
   }
   console.log("Character Length? " + lengthChoice);
 
+  // Runs the generatePassword function as long as at least one option was selected
   if (lowercaseChoice === "no" && uppercaseChoice === "no" && numberChoice === "no" && specialChoice === "no") {
     window.alert("You need to say yes at least once. Please try again!");
     return;
@@ -96,4 +188,4 @@ function writePassword() {
 
 
 // Add event listener to generate button
-generateBtn.addEventListener("click", writePassword);
+generateBtn.addEventListener("click", writePassword)
